@@ -1,17 +1,25 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import App from "./App";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
+const movies = [
+  {
+    id: 1,
+    title: "The Godfather",
+    watchList: true,
+  },
+  {
+    id: 2,
+    title: "The Shawshank Redemption",
+    watchList: false,
+  },
+  {
+    id: 3,
+    title: "The Lord of the Rings: The Return of the King",
+    watchList: true,
+  },
+];
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(<App movies={movies} />);

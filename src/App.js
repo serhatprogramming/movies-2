@@ -1,25 +1,47 @@
-import logo from './logo.svg';
-import './App.css';
+import Movie from "./components/Movie";
 
-function App() {
+import { useState } from "react";
+
+const App = ({ movies }) => {
+  const [movieList, setMovieList] = useState(movies);
+  const [newMovie, setNewMovie] = useState("");
+  const [showWatchList, setShowWatchList] = useState(false);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const newMovieObject = {
+      title: newMovie,
+      watchList: true,
+      id: Date.now(),
+    };
+    setMovieList([...movieList, newMovieObject]);
+    setNewMovie("");
+  };
+
+  const handleChange = (e) => setNewMovie(e.target.value);
+
+  const filteredMovies = !showWatchList
+    ? movieList
+    : movieList.filter((movie) => movie.watchList);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>Must Watch Movies</h1>
+      <button onClick={() => setShowWatchList(!showWatchList)}>
+        Show {!showWatchList ? "Only the Watch List" : "All Movies"}{" "}
+      </button>
+      <ul>
+        {filteredMovies.map((movie) => (
+          <Movie key={movie.id} movie={movie} />
+        ))}
+      </ul>
+      <h2>Add a New Movie</h2>
+      <form onSubmit={handleSubmit}>
+        <input value={newMovie} onChange={handleChange} />
+        <button type="submit">Submit</button>
+      </form>
     </div>
   );
-}
+};
 
 export default App;
